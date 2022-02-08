@@ -1,0 +1,27 @@
+iframe {
+    display: none;
+}
+
+.spinner {
+    background-color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    height: 100vh;
+    &.active {
+        display: flex;
+    }
+}
+.media {
+    display: flex;
+    align-items: flex-start;
+    &-body {
+        flex: 1;
+    }
+}
