@@ -96,12 +96,12 @@ const FormAdd = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="needs-validation" noValidate>
                             <div className="modal-body">
                                 <div className="form-group mb-3">
-                                    <label htmlFor="title">Title <span className="form-required">(*)</span></label>
+                                    <label htmlFor="title">Title <span className="form-required">*</span></label>
                                     <input id="title" {...register("title")} className={`form-control ${errors?.title?.message ? `is-invalid` : ``}`} name="title" type="text" placeholder="Title articles" />
                                     <div className="invalid-feedback">{errors?.title?.message}</div>
                                 </div>
                                 <div className="form-group mb-3">
-                                    <label htmlFor="Image">Image <span className="form-required">(*)</span></label>
+                                    <label htmlFor="Image">Image <span className="form-required">*</span></label>
                                     <input id="image" className={`form-control form-control-file ${errors?.image?.message ? `is-invalid` : ``}`} name="image" type="file" accept="image/*" onChange={handleChangeImage} />
                                     <div className="invalid-feedback">{errors?.image?.message}</div>
                                 </div>
