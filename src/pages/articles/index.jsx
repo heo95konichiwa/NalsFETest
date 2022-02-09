@@ -7,7 +7,7 @@ const Articles = () => {
     return (
         <div className="container-fluid">
             <div className="row justify-content-center">
-                <div className="col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+                <div className="col-md-9 col-xl-8 pl-md-5 bd-content">
                     <ArticlesList />
                 </div>
             </div>

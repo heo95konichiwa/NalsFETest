@@ -5,10 +5,6 @@ class ArticlesApi {
         const url = '/blogs';
         return axiosClient.get(url, { params });
     };
-    getListPagination = (params) => {
-        const url = '/blogs';
-        return axiosClient.get(url, { params });
-    };
 }
 const articlesApi = new ArticlesApi();
 export default articlesApi;

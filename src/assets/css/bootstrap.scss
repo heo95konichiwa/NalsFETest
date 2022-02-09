@@ -1,7 +1,9 @@
+body {
+    background-color: #f5f5f5;
+}
 iframe {
     display: none;
 }
-
 .spinner {
     background-color: rgba(255, 255, 255, 0.7);
     position: absolute;
@@ -24,4 +26,26 @@ iframe {
     &-body {
         flex: 1;
     }
+}
+.container {
+    &-main {
+        background-color: #fff;
+        padding: 1rem;
+    }
+}
+.page {
+    &-link {
+        cursor: pointer;
+    }
+}
+.form {
+    &-control {
+        height: 2.75rem;
+    }
+}
+.modal-dialog {
+    max-width: 43.75rem;
+}
+.ck-editor__editable_inline {
+    min-height: 15.625rem;
 }
