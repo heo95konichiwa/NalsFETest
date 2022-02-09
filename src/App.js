@@ -3,6 +3,7 @@ import React, { Suspense, Fragment } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './assets/css/bootstrap.scss';
 import Articles from './pages/articles';
+import ArticlesDetail from './pages/articlesDetail';
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
         <Fragment>
           <Routes>
             <Route name="articles" exact path="/articles" element={<Articles />} />
-            <Route name="articleDetail" exact path="/articles/:id" element={<Articles />} />
+            <Route name="articlesDetail" exact path="/articles-detail/:id" element={<ArticlesDetail />} />
           </Routes>
         </Fragment>
       </BrowserRouter>

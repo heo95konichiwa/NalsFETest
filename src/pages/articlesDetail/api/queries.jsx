@@ -1,13 +1,9 @@
 import axiosClient from '../../../axiosClient';
 
 class ArticlesApi {
-    getList = (params) => {
-        const url = '/blogs';
-        return axiosClient.get(url, { params });
-    };
-    getListPagination = (params) => {
-        const url = '/blogs';
-        return axiosClient.get(url, { params });
+    getDetail = (params) => {
+        const url = `/blogs/${params.id}`;
+        return axiosClient.get(url);
     };
 }
 const articlesApi = new ArticlesApi();
