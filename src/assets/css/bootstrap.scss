@@ -15,7 +15,7 @@ iframe {
     justify-content: center;
     align-items: center;
     z-index: 1;
-    height: 100vh;
+    height: 100%;
     &.active {
         display: flex;
     }
@@ -31,6 +31,7 @@ iframe {
     &-main {
         background-color: #fff;
         padding: 1rem;
+        border-radius: 0.25rem;
     }
 }
 .page {
@@ -41,6 +42,31 @@ iframe {
 .form {
     &-control {
         height: 2.75rem;
+    }
+}
+.toast {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    visibility: hidden;
+    &.show {
+        visibility: visible;
+    }
+    &-header {
+        &.success {
+            font-weight: 400;
+            background-color: #218838;
+            color: #fff;
+        }
+    }
+    .close {
+        text-shadow: none;
+        opacity: 1;
+    }
+    &-close {
+        color: #fff;
+        font-size: 0.875rem;
     }
 }
 .modal-dialog {

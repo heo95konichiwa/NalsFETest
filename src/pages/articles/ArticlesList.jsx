@@ -4,86 +4,69 @@ import articlesApi from './api/queries';
 import NoImage from '../../assets/images/no-image.png';
 import './style.scss';
 import FormAdd from './FormAdd';
+import FormEdit from './FormEdit';
 
 const ArticlesList = () => {
     const [data, setData] = useState([]);
-    const [params, setParams] = useState({ page: 1, limit: 10, sortBy: 'createdAt', order: 'desc', search: '', filter: '', title: '' });
+    const [params, setParams] = useState({ page: 1, limit: 10 });
     const [pagination, setPagination] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [idArticle, setIdArticle] = useState();
 
-    const handleSearch = async (event) => {
-        const { value } = event.target;
-        setParams({ page: 1, limit: 10, sortBy: 'createdAt', order: 'desc', search: value, filter: value, title: value });
+    const handlePagination = async (parameter) => {
+        const resp = await articlesApi.getList(parameter);
+        let arr = [];
+        for (let i = 0; i < parseInt(resp.length / 10); i++) {
+            arr.push(i + 1);
+        }
+        setPagination(arr);
+    };
+
+    const handleFetchData = async (parameter) => {
         setLoading(true);
         try {
-            let arr = [];
-            const resp = await articlesApi.getList(params);
-
-            for (let i = 0; i < parseInt(resp.length / 10); i++) {
-                arr.push(i + 1);
-            }
-
+            const resp = await articlesApi.getList(parameter);
             setData(resp);
-            setPagination(arr);
         } catch (error) {
             console.log(error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleSearch = async (event) => {
+        const { value } = event.target;
+        setParams({ page: 1, limit: 10, search: value });
+        handleFetchData(params);
+        if (value) {
+            handlePagination(params);
+        }
+        else {
+            handlePagination({});
         }
     };
 
     const handleSort = async (event) => {
         const { value } = event.target;
         setParams({ page: 1, limit: 10, sortBy: 'createdAt', order: value });
-        setLoading(true);
-        try {
-            const resp = await articlesApi.getList(params);
-            setData(resp);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
+        handleFetchData(params);
     };
 
     const handleChangePage = async (value) => {
-        setParams({ page: value, limit: 10, sortBy: 'createdAt', order: 'desc' });
-        setLoading(true);
-        try {
-            const resp = await articlesApi.getList(params);
-            setData(resp);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
+        setParams({ page: value, limit: 10 });
+        handleFetchData(params);
     };
+
+    const handleEditData = (id) => {
+        setIdArticle(id);
+    }
 
     useEffect(() => {
         if (params.page === 1) {
-            const fetchData = async () => {
-                setLoading(true);
-                try {
-                    const resp = await articlesApi.getList(params);
-                    setData(resp);
-                } catch (error) {
-                    console.log(error);
-                } finally {
-                    setLoading(false);
-                }
-            };
-            fetchData();
+            handleFetchData(params);
         }
 
-        const renderPagination = async () => {
-            const resp = await articlesApi.getList();
-            let arr = [];
-            for (let i = 0; i < parseInt(resp.length / 10); i++) {
-                arr.push(i + 1);
-            }
-            setPagination(arr);
-        };
-        renderPagination();
+        handlePagination({});
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -107,9 +90,10 @@ const ArticlesList = () => {
                             <input className="form-control" type="search" placeholder="Input search text" onChange={handleSearch} />
                         </div>
                         <div className="form-group col-md-2">
-                            <select className="form-control" onChange={handleSort}>
-                                <option value="desc">Oldest posting date</option>
+                            <select className="form-control" onChange={handleSort} defaultValue="">
+                                <option value="" disabled hidden>Sort by</option>
                                 <option value="asc">Last posted date</option>
+                                <option value="desc">Oldest posting date</option>
                             </select>
                         </div>
                     </div>
@@ -128,7 +112,7 @@ const ArticlesList = () => {
                                     <NavLink exact="true" to={`/articles-detail/${item.id}`}>
                                         <h5 className="mt-0 mb-1">{item.title}</h5>
                                     </NavLink>
-                                    <i className="articles-icon icon icon-edit"></i>
+                                    <i className="articles-icon icon icon-edit" data-toggle="modal" data-target="#modalEdit" onClick={() => handleEditData(item.id)}></i>
                                 </div>
                             </li>
                         )) : <></>
@@ -149,6 +133,7 @@ const ArticlesList = () => {
                 }
             </div>
             <FormAdd />
+            <FormEdit id={idArticle} />
         </div>
     )
 }
