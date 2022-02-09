@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useForm } from "react-hook-form";
@@ -6,7 +6,9 @@ import { object, string, mixed } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import articlesApi from './api/queries';
 
-const FormAdd = () => {
+const FormAdd = (props) => {
+    const { setDt } = props;
+
     const [loading, setLoading] = useState(false);
     const [toastShow, setToastShow] = useState("");
 
@@ -47,6 +49,7 @@ const FormAdd = () => {
         handleSubmit,
         formState: { errors },
         setValue,
+        reset
     } = useForm({
         resolver: yupResolver(schema),
         resolvers: yupResolver(schema),
@@ -57,6 +60,7 @@ const FormAdd = () => {
         await articlesApi.postData(data)
             .then(() => {
                 setToastShow("fade show");
+                reset();
             })
             .catch((error) => {
                 console.log(error);
@@ -64,10 +68,15 @@ const FormAdd = () => {
                 setLoading(false);
                 setTimeout(() => {
                     setToastShow("");
-                    document.getElementById("modalAdd").classList.remove("show");
-                }, 2000);
+                }, 1800);
             });
+
+        const resp = await articlesApi.getList({ page: 1, limit: 10 });
+        setDt(resp);
     };
+    
+    useEffect(() => {
+    }, [setDt]);
 
     return (
         <>
