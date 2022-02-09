@@ -38,11 +38,20 @@ iframe {
     &-link {
         cursor: pointer;
     }
+    &-item {
+        margin-bottom: 0.25rem;
+    }
 }
 .form {
     &-control {
         height: 2.75rem;
     }
+    &-required {
+        color: #dc3545;
+    }
+}
+.pagination {
+    flex-wrap: wrap;
 }
 .toast {
     position: fixed;
@@ -74,4 +83,5 @@ iframe {
 }
 .ck-editor__editable_inline {
     min-height: 15.625rem;
+    max-height: 15.625rem;
 }

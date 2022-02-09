@@ -71,6 +71,16 @@ const ArticlesList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        if (params.page === 1) {
+            handleFetchData(params);
+        }
+
+        handlePagination({});
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setData, setIdArticle, setParams, setPagination]);
+
     return (
         <div className="articles">
             <div className={`spinner ${loading ? `active` : ``}`}>
@@ -132,8 +142,8 @@ const ArticlesList = () => {
                     </nav> : <></>
                 }
             </div>
-            <FormAdd />
-            <FormEdit id={idArticle} />
+            <FormAdd setDt={setData} />
+            <FormEdit setDt={setData} id={idArticle} />
         </div>
     )
 }

@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Fragment>
           <Routes>
-            <Route name="articles" exact path="/articles" element={<Articles />} />
+            <Route name="articles" exact path="/" element={<Articles />} />
             <Route name="articlesDetail" exact path="/articles-detail/:id" element={<ArticlesDetail />} />
           </Routes>
         </Fragment>

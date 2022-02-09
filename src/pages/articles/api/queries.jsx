@@ -5,6 +5,11 @@ class ArticlesApi {
         const url = '/blogs';
         return axiosClient.get(url, { params });
     };
+    
+    getDetail = (params) => {
+        const url = `/blogs/${params.id}`;
+        return axiosClient.get(url);
+    };
 
     postData = (params) => {
         const url = '/blogs';
