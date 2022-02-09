@@ -10,7 +10,6 @@ const FormAdd = () => {
     const [loading, setLoading] = useState(false);
     const [toastShow, setToastShow] = useState("");
 
-
     const schema = object().shape({
         title: string().required("Title is a required field"),
         image: mixed().test("required", "Image is a required field", (value) => {
