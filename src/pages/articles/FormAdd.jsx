@@ -65,7 +65,8 @@ const FormAdd = () => {
                 setLoading(false);
                 setTimeout(() => {
                     setToastShow("");
-                }, 1500);
+                    document.getElementById("modalAdd").classList.remove("show");
+                }, 2000);
             });
     };
 
